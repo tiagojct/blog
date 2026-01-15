@@ -1,0 +1,39 @@
+{{- $currentURL := .RelPermalink -}}
+{{- $currentSlug := .Params.slug | default "" -}}
+{{- $backlinks := slice -}}
+
+{{/* Search all pages, not just blog posts */}}
+{{- range where .Site.RegularPages "RelPermalink" "!=" $currentURL -}}
+  {{- $found := false -}}
+  {{/* Check for permalink in content */}}
+  {{- if findRE $currentURL .RawContent -}}
+    {{- $found = true -}}
+  {{- end -}}
+  {{/* Also check for slug-based links if slug exists */}}
+  {{- if and (not $found) $currentSlug -}}
+    {{- $slugPattern := printf "/%s" $currentSlug -}}
+    {{- if findRE $slugPattern .RawContent -}}
+      {{- $found = true -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $found -}}
+    {{- $backlinks = $backlinks | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $backlinks -}}
+<section class="backlinks">
+  <h2>Backlinks</h2>
+  <ul class="archive-list">
+    {{- range $backlinks -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+</section>
+{{- end -}}

@@ -1,0 +1,124 @@
+{{- $type := .Params.post_type | default "post" -}}
+
+<article class="post-item post-{{ $type }}">
+  {{- if eq $type "quote" -}}
+  {{/* Quote Post - No title, just content in blockquote style */}}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  {{ with .Params.attribution }}
+  <p class="quote-attribution">— {{ . }}</p>
+  {{ end }}
+
+  {{- else if eq $type "link" -}}
+  {{/* Link Post - Title links to external URL */}}
+  <h2 class="post-title">
+    <a href="{{ .Params.link_url }}" target="_blank" rel="noopener">{{ .Title }}{{ partial "star.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- else if eq $type "photo" -}}
+  {{/* Photo Post */}}
+  <figure class="post-photo-full">
+    <a href="{{ .RelPermalink }}">
+      <img src="{{ .Params.photo_url }}" alt="{{ .Title }}" loading="lazy">
+    </a>
+  </figure>
+  <h2 class="post-title">
+    <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- else if eq $type "album" -}}
+  {{/* Album Review */}}
+  {{ with .Params.cover_url }}
+  <figure class="review-cover">
+    <a href="{{ $.RelPermalink }}">
+      <img src="{{ . }}" alt="{{ $.Params.album }} cover" loading="lazy">
+    </a>
+    <figcaption>{{ with $.Params.cover_caption }}{{ . }}{{ else }}{{ $.Params.album }} ({{ $.Params.year }}){{ end }}</figcaption>
+  </figure>
+  {{ end }}
+  <h2 class="post-title">
+    <a href="{{ .RelPermalink }}">{{ .Params.artist }} – {{ .Params.album }} ({{ .Params.year }}){{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- else if eq $type "movie" -}}
+  {{/* Movie Review */}}
+  {{ with .Params.poster_url }}
+  <figure class="review-cover">
+    <a href="{{ $.RelPermalink }}">
+      <img src="{{ . }}" alt="{{ $.Title }} poster" loading="lazy">
+    </a>
+    <figcaption>{{ with $.Params.cover_caption }}{{ . }}{{ else }}{{ $.Title }} ({{ $.Params.year }}){{ end }}</figcaption>
+  </figure>
+  {{ end }}
+  <h2 class="post-title">
+    <a href="{{ .RelPermalink }}">{{ .Title }} ({{ .Params.year }}){{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- else if eq $type "book" -}}
+  {{/* Book Review */}}
+  {{ with .Params.cover_url }}
+  <figure class="review-cover">
+    <a href="{{ $.RelPermalink }}">
+      <img src="{{ . }}" alt="{{ $.Title }} cover" loading="lazy">
+    </a>
+    <figcaption>{{ with $.Params.cover_caption }}{{ . }}{{ else }}{{ $.Params.author }}, {{ $.Params.year }}{{ end }}</figcaption>
+  </figure>
+  {{ end }}
+  <h2 class="post-title">
+    <a href="{{ .RelPermalink }}">{{ .Params.author }} – {{ .Title }} ({{ .Params.year }}){{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- else -}}
+  {{/* Regular Post */}}
+  <h2 class="post-title">
+    <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}</a>
+  </h2>
+  {{ with .Content }}
+  <div class="post-content">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{- end -}}
+
+  {{/* Post Meta */}}
+  <footer class="post-meta">
+    <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">
+      <a href="{{ .RelPermalink }}">{{ .Date.Format "2006-01-02" }}</a>
+    </time>
+    {{ partial "reading-time.html" . }}
+    {{ with .Params.tags }}
+    <div class="post-tags">
+      {{- range . -}}
+      <a href="/tags/{{ . | urlize }}/">{{ . }}</a>
+      {{- end -}}
+    </div>
+    {{ end }}
+  </footer>
+</article>

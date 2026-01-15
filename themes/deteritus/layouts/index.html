@@ -1,0 +1,32 @@
+{{ define "main" }}
+{{- $posts := where .Site.RegularPages "Section" "blog" -}}
+{{- $paginator := .Paginate ($posts.ByDate.Reverse) -}}
+
+{{- if not $paginator.HasPrev -}}
+{{/* Only show intro on first page */}}
+<div class="site-intro">
+  {{ with .Site.Params.intro }}
+  <p>{{ . }}</p>
+  {{ else }}
+  <p>A personal blog about technology, music, books, films, and whatever else catches my attention.</p>
+  {{ end }}
+</div>
+{{- end -}}
+
+<div class="post-list">
+  {{- range $paginator.Pages -}}
+    {{ partial "post-preview.html" . }}
+  {{- end -}}
+</div>
+
+{{- if or ($paginator.HasPrev) ($paginator.HasNext) -}}
+<nav class="pagination">
+  {{- if $paginator.HasPrev -}}
+  <a href="{{ $paginator.Prev.URL }}">&larr; Newer</a>
+  {{- end -}}
+  {{- if $paginator.HasNext -}}
+  <a href="{{ $paginator.Next.URL }}">Older &rarr;</a>
+  {{- end -}}
+</nav>
+{{- end -}}
+{{ end }}

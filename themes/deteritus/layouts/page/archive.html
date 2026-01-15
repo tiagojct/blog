@@ -1,0 +1,200 @@
+{{ define "main" }}
+{{- $blogPosts := where .Site.RegularPages "Section" "blog" -}}
+
+<header class="page-header">
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+
+<div class="archive-intro">
+  <p>Everything I've written, organized for easy browsing. Use the search below to find something specific, or explore by section.</p>
+</div>
+
+{{/* Search Section */}}
+<section class="archive-section">
+  <h2>Search</h2>
+  <div class="search-container">
+    <div id="search"></div>
+  </div>
+</section>
+
+{{/* Gallery Preview */}}
+{{- $photos := where $blogPosts ".Params.post_type" "photo" -}}
+{{- if $photos -}}
+<section class="archive-section">
+  <h2>Gallery</h2>
+  <div class="gallery-preview">
+    {{- range first 3 $photos.ByDate.Reverse -}}
+    <a href="{{ .RelPermalink }}" class="gallery-preview-item">
+      <img src="{{ .Params.photo_url }}" alt="{{ .Title }}" loading="lazy">
+    </a>
+    {{- end -}}
+  </div>
+  <p class="gallery-link"><a href="/gallery/">View all photos →</a></p>
+</section>
+{{- end -}}
+
+{{/* Favorites Section */}}
+{{- $favorites := where $blogPosts ".Params.favorite" true -}}
+{{- if $favorites -}}
+<section class="archive-section">
+  <h2>Favorites</h2>
+  <ul class="archive-list">
+    {{- range $favorites.ByDate.Reverse -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+</section>
+{{- end -}}
+
+{{/* Tags Section */}}
+{{- $tags := .Site.Taxonomies.tags -}}
+{{- if $tags -}}
+<section class="archive-section">
+  <h2>Tags</h2>
+  <ul class="tags-list">
+    {{- range $tags.ByCount -}}
+    <li>
+      <a href="/tags/{{ .Name | urlize }}/">#{{ .Name }} <span class="tag-count">({{ .Count }})</span></a>
+    </li>
+    {{- end -}}
+  </ul>
+</section>
+{{- end -}}
+
+{{/* Movies Section */}}
+{{- $movies := where $blogPosts ".Params.post_type" "movie" -}}
+{{- if $movies -}}
+<section class="archive-section">
+  <h2>Movies</h2>
+  {{- $moviePages := $movies.ByDate.Reverse -}}
+  {{- $years := slice -}}
+  {{- range $moviePages -}}
+    {{- $year := .Date.Format "2006" -}}
+    {{- if not (in $years $year) -}}
+      {{- $years = $years | append $year -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $year := $years -}}
+  <h3 class="archive-year">{{ $year }}</h3>
+  <ul class="archive-list">
+    {{- range where $moviePages "Date.Year" (int $year) -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end -}}
+</section>
+{{- end -}}
+
+{{/* Albums Section */}}
+{{- $albums := where $blogPosts ".Params.post_type" "album" -}}
+{{- if $albums -}}
+<section class="archive-section">
+  <h2>Albums</h2>
+  {{- $albumPages := $albums.ByDate.Reverse -}}
+  {{- $years := slice -}}
+  {{- range $albumPages -}}
+    {{- $year := .Date.Format "2006" -}}
+    {{- if not (in $years $year) -}}
+      {{- $years = $years | append $year -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $year := $years -}}
+  <h3 class="archive-year">{{ $year }}</h3>
+  <ul class="archive-list">
+    {{- range where $albumPages "Date.Year" (int $year) -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end -}}
+</section>
+{{- end -}}
+
+{{/* Books Section */}}
+{{- $books := where $blogPosts ".Params.post_type" "book" -}}
+{{- if $books -}}
+<section class="archive-section">
+  <h2>Books</h2>
+  {{- $bookPages := $books.ByDate.Reverse -}}
+  {{- $years := slice -}}
+  {{- range $bookPages -}}
+    {{- $year := .Date.Format "2006" -}}
+    {{- if not (in $years $year) -}}
+      {{- $years = $years | append $year -}}
+    {{- end -}}
+  {{- end -}}
+  {{- range $year := $years -}}
+  <h3 class="archive-year">{{ $year }}</h3>
+  <ul class="archive-list">
+    {{- range where $bookPages "Date.Year" (int $year) -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end -}}
+</section>
+{{- end -}}
+
+{{/* All Posts by Year */}}
+<section class="archive-section">
+  <h2>All Posts</h2>
+  {{- $pages := $blogPosts.ByDate.Reverse -}}
+  {{- $years := slice -}}
+  {{- range $pages -}}
+    {{- $year := .Date.Format "2006" -}}
+    {{- if not (in $years $year) -}}
+      {{- $years = $years | append $year -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- range $year := $years -}}
+  <h3 class="archive-year">{{ $year }}</h3>
+  <ul class="archive-list">
+    {{- range where $pages "Date.Year" (int $year) -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end -}}
+</section>
+{{ end }}
+
+{{ define "scripts" }}
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false
+    });
+  });
+</script>
+{{ end }}

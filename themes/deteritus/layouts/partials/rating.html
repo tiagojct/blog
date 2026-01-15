@@ -1,0 +1,18 @@
+{{- with .Params.rating -}}
+{{- $grade := . -}}
+{{- $class := "rating-c" -}}
+{{- if or (eq $grade "A+") (eq $grade "A") -}}
+  {{- $class = "rating-a" -}}
+{{- else if or (eq $grade "A-") (eq $grade "B+") -}}
+  {{- $class = "rating-a-minus" -}}
+{{- else if or (eq $grade "B") (eq $grade "B-") -}}
+  {{- $class = "rating-b" -}}
+{{- else if or (eq $grade "C+") (eq $grade "C") (eq $grade "C-") -}}
+  {{- $class = "rating-c" -}}
+{{- else if or (eq $grade "D+") (eq $grade "D") (eq $grade "D-") -}}
+  {{- $class = "rating-d" -}}
+{{- else if eq $grade "F" -}}
+  {{- $class = "rating-f" -}}
+{{- end -}}
+<span class="rating {{ $class }}">{{ . }}</span>
+{{- end -}}

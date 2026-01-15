@@ -1,0 +1,29 @@
+{{ define "main" }}
+<header class="page-header">
+  <h1 class="page-title">#{{ .Title }}</h1>
+</header>
+
+{{- $pages := .Pages.ByDate.Reverse -}}
+{{- $years := slice -}}
+{{- range $pages -}}
+  {{- $year := .Date.Format "2006" -}}
+  {{- if not (in $years $year) -}}
+    {{- $years = $years | append $year -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range $year := $years -}}
+<h3 class="archive-year">{{ $year }}</h3>
+<ul class="archive-list">
+  {{- range where $pages "Date.Year" (int $year) -}}
+  <li>
+    <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+    <span class="archive-link">
+      {{- partial "post-icon.html" . -}}
+      <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+    </span>
+  </li>
+  {{- end -}}
+</ul>
+{{- end -}}
+{{ end }}

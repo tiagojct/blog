@@ -1,0 +1,23 @@
+{{ define "main" }}
+<header class="page-header">
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+
+<div class="post-list">
+  {{- range .Paginator.Pages -}}
+    {{ partial "post-preview.html" . }}
+  {{- end -}}
+</div>
+
+{{- $paginator := .Paginator -}}
+{{- if or ($paginator.HasPrev) ($paginator.HasNext) -}}
+<nav class="pagination">
+  {{- if $paginator.HasPrev -}}
+  <a href="{{ $paginator.Prev.URL }}">&larr; Newer</a>
+  {{- end -}}
+  {{- if $paginator.HasNext -}}
+  <a href="{{ $paginator.Next.URL }}">Older &rarr;</a>
+  {{- end -}}
+</nav>
+{{- end -}}
+{{ end }}

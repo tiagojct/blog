@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(hugo version:*)",
+      "Bash(hugo:*)",
+      "Bash(npx pagefind:*)",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(chmod:*)",
+      "Bash(./newpost)",
+      "Bash(./newpost post:*)",
+      "Bash(./newpost:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(npx:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(xxd:*)",
+      "Bash(file:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}

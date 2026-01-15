@@ -1,0 +1,980 @@
+/* ==========================================================================
+   Deteritus Theme - CSS
+   ========================================================================== */
+
+/* Font Faces */
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-bt-586c36a8d7712.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-italic-bt-586c3740dc396.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-bold-bt-586c371d8d669.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-bold-italic-bt-586c37701cb62.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-black-bt-586c36e930225.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Iowan Old Style';
+  src: url('/fonts/bitstream-iowan-old-style-black-italic-bt-586c378f12ca1.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* CSS Custom Properties */
+:root {
+  --bg: #fffff8;
+  --text: #111;
+  --muted: #666;
+  --link: #2a7a4b;
+  --border: #ddd;
+  --font-primary: 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'SF Mono', Consolas, monospace;
+  --max-width: 44rem;
+  --line-height: 1.7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #151515;
+    --text: #ddd;
+    --muted: #999;
+    --link: #6ab889;
+    --border: #333;
+  }
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 22px;
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  line-height: var(--line-height);
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Site Container */
+.site-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .site-container {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.site-title:hover {
+  color: var(--link);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.nav-link:hover {
+  color: var(--link);
+}
+
+.nav-link svg {
+  flex-shrink: 0;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.footer-icons a {
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+
+.footer-icons a:hover {
+  color: var(--link);
+}
+
+.footer-icons svg {
+  display: block;
+}
+
+/* Links */
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link);
+}
+
+/* Art Deco-inspired link styling for post content */
+.post-content a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid var(--link);
+  padding-bottom: 1px;
+  transition: border-bottom-width 0.15s ease, padding-bottom 0.15s ease;
+}
+
+.post-content a:hover {
+  border-bottom-width: 2px;
+  padding-bottom: 0;
+}
+
+/* External link indicator */
+.post-content a[href^="http"]:not([href*="deteritus.com"])::after {
+  content: '';
+  display: inline-block;
+  width: 0.65em;
+  height: 0.65em;
+  margin-left: 0.2em;
+  vertical-align: baseline;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a7a4b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .post-content a[href^="http"]:not([href*="deteritus.com"])::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236ab889' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  }
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.1rem; }
+
+/* Paragraphs */
+p {
+  margin: 0 0 1.5rem;
+}
+
+/* Lists */
+ul, ol {
+  margin: 0 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+blockquote {
+  margin: 0 0 1.5rem;
+  padding: 0 0 0 1.5rem;
+  border-left: 3px solid var(--link);
+  font-style: italic;
+  color: var(--muted);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--border);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background: var(--border);
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+figure {
+  margin: 0 0 1.5rem;
+}
+
+figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Horizontal Rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* ==========================================================================
+   Post Styles
+   ========================================================================== */
+
+/* Post List */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-item {
+  margin-bottom: 6rem;
+}
+
+.post-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Post Header */
+.post-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.post-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: var(--link);
+}
+
+/* Post Meta / Footer */
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 1rem;
+}
+
+.post-date {
+  color: var(--muted);
+}
+
+.post-date a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.post-date a:hover {
+  color: var(--link);
+  border-bottom-color: var(--link);
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.post-tags a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.post-tags a:hover {
+  color: var(--link);
+}
+
+.post-tags a::before {
+  content: '#';
+}
+
+/* Post Content */
+.post-content {
+  margin-top: 1rem;
+}
+
+.post-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Star (Favorite) Icon */
+.star {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+  color: currentColor;
+}
+
+/* ==========================================================================
+   Post Types
+   ========================================================================== */
+
+/* Quote Post */
+.post-quote .post-content {
+  font-size: 1.2rem;
+  font-style: italic;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--link);
+}
+
+.quote-attribution {
+  font-size: 0.9rem;
+  font-style: normal;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+/* Link Post */
+.post-link .post-title a {
+  color: var(--link);
+}
+
+.post-link .post-title a::after {
+  content: ' \2192';
+}
+
+/* Photo Post */
+.post-photo-full {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.post-photo-full a {
+  display: block;
+}
+
+.post-photo-full img {
+  width: 100%;
+  border-radius: 3px;
+}
+
+/* Review Posts (Album, Movie, Book) */
+.review-cover {
+  width: 50%;
+  margin-bottom: 1rem;
+}
+
+.review-cover img {
+  width: 100%;
+  border-radius: 3px;
+}
+
+.review-cover figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .review-cover {
+    width: 100%;
+  }
+}
+
+/* Rating Badge */
+.rating {
+  display: inline-block;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 0.15em 0.4em;
+  margin-left: 0.5rem;
+  background: var(--rating-c);
+  color: var(--bg);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+/* Rating colors - faded palette */
+.rating-a { background: #4a7c59; }      /* Muted forest green */
+.rating-a-minus { background: #5a8a6a; } /* Lighter green */
+.rating-b { background: #7a9a5a; }       /* Olive green */
+.rating-c { background: #8a8a6a; }       /* Muted olive/gray */
+.rating-d { background: #9a7a5a; }       /* Muted tan/brown */
+.rating-f { background: #8a5a5a; }       /* Muted dusty rose/red */
+
+@media (prefers-color-scheme: dark) {
+  .rating-a { background: #5a9a6a; }
+  .rating-a-minus { background: #6aaa7a; }
+  .rating-b { background: #8aaa6a; }
+  .rating-c { background: #9a9a7a; }
+  .rating-d { background: #aa8a6a; }
+  .rating-f { background: #9a6a6a; }
+}
+
+/* ==========================================================================
+   Post Type Icons
+   ========================================================================== */
+
+.post-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Single Post Page
+   ========================================================================== */
+
+.single-post {
+  margin-bottom: 3rem;
+}
+
+.single-post .post-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.single-post .post-header {
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Archive Page
+   ========================================================================== */
+
+.archive-section {
+  margin-bottom: 3rem;
+}
+
+.archive-section h2 {
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-weight: 400;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.archive-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.archive-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  width: 6rem;
+}
+
+.archive-link {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.archive-link a {
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.archive-link a:hover {
+  color: var(--link);
+}
+
+/* Tags List */
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tags-list li {
+  margin: 0;
+}
+
+.tags-list a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.tags-list a:hover {
+  color: var(--link);
+}
+
+.tags-list .tag-count {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+
+/* Year Headers */
+.archive-year {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 2rem 0 1rem;
+}
+
+.archive-year:first-child {
+  margin-top: 0;
+}
+
+/* ==========================================================================
+   Gallery Page
+   ========================================================================== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.gallery-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.gallery-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Search Page
+   ========================================================================== */
+
+.search-container {
+  margin-bottom: 2rem;
+}
+
+/* Pagefind UI Overrides */
+.pagefind-ui {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--link);
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--border);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 3px;
+  --pagefind-ui-font: var(--font-primary);
+}
+
+/* ==========================================================================
+   Backlinks & Similar Posts
+   ========================================================================== */
+
+.backlinks,
+.similar-posts {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.backlinks h2,
+.similar-posts h2 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+/* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+.pagination {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pagination a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  color: var(--link);
+}
+
+/* ==========================================================================
+   Page Styles
+   ========================================================================== */
+
+.page-title {
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.page-content {
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Site Intro (Homepage)
+   ========================================================================== */
+
+.site-intro {
+  margin-bottom: 4rem;
+  padding: 2rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-intro p {
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0;
+  max-width: 36rem;
+}
+
+/* ==========================================================================
+   Archive Enhancements
+   ========================================================================== */
+
+.archive-intro {
+  margin-bottom: 2rem;
+}
+
+.archive-intro p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.archive-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.archive-links li {
+  margin-bottom: 0.5rem;
+}
+
+.archive-links a {
+  font-weight: 600;
+}
+
+/* Gallery Preview in Archive */
+.gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .gallery-preview {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+.gallery-preview-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 3px;
+  display: block;
+}
+
+.gallery-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-preview-item:hover img {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+.gallery-link {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.gallery-link a {
+  color: var(--muted);
+}
+
+.gallery-link a:hover {
+  color: var(--link);
+}
+
+/* ==========================================================================
+   Reading Time
+   ========================================================================== */
+
+.reading-time {
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Image Hover Effects
+   ========================================================================== */
+
+.post-photo-full img,
+.review-cover img,
+.gallery-item img {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.post-photo-full a:hover img,
+.review-cover a:hover img {
+  opacity: 0.9;
+}
+
+/* Gallery already has transform, just add opacity */
+.gallery-item:hover img {
+  opacity: 0.95;
+}
+
+/* ==========================================================================
+   Footer Enhancements
+   ========================================================================== */
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.footer-credit a {
+  color: var(--link);
+  border-bottom: 1px solid var(--link);
+  padding-bottom: 1px;
+  transition: border-bottom-width 0.15s ease, padding-bottom 0.15s ease;
+}
+
+.footer-credit a:hover {
+  border-bottom-width: 2px;
+  padding-bottom: 0;
+}
+
+/* ==========================================================================
+   404 Page
+   ========================================================================== */
+
+.error-page {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.error-page .page-title {
+  font-size: 2rem;
+}
+
+.error-page ul {
+  list-style: none;
+  padding: 0;
+}
+
+.error-page li {
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .site-header,
+  .site-footer,
+  .pagination,
+  .backlinks,
+  .similar-posts,
+  .post-tags,
+  .search-container {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  .site-container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .post-content a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  .post-content a[href^="#"]::after,
+  .post-content a[href^="/"]::after {
+    content: "";
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,47 @@
+#!/bin/bash
+# Create a new blog post using Hugo archetypes
+# Usage: ./newpost <type> <slug>
+# Example: ./newpost post my-new-post
+#          ./newpost album ok-computer-review
+
+TYPES="post quote link photo album movie book"
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: ./newpost <type> <slug>"
+    echo "Types: $TYPES"
+    echo ""
+    echo "Examples:"
+    echo "  ./newpost post my-thoughts"
+    echo "  ./newpost quote sagan-on-books"
+    echo "  ./newpost link interesting-article"
+    echo "  ./newpost album ok-computer-review"
+    echo "  ./newpost movie parasite-review"
+    echo "  ./newpost book slaughterhouse-five"
+    exit 1
+fi
+
+TYPE=$1
+SLUG=$2
+DATE=$(date +%Y-%m-%d)
+FILENAME="content/blog/${DATE}_${SLUG}.md"
+
+# Check if type is valid
+if [[ ! " $TYPES " =~ " $TYPE " ]]; then
+    echo "Error: Invalid type '$TYPE'"
+    echo "Valid types: $TYPES"
+    exit 1
+fi
+
+# Create the post
+hugo new --kind "$TYPE" "blog/${DATE}_${SLUG}.md" 2>/dev/null
+
+if [ $? -eq 0 ]; then
+    # Insert the slug into frontmatter
+    sed -i '' "s/^slug: \"\"/slug: \"${SLUG}\"/" "$FILENAME"
+
+    echo "Created: $FILENAME"
+    echo ""
+    echo "Open with:"
+    echo "  code $FILENAME"
+    echo "  nvim $FILENAME"
+fi

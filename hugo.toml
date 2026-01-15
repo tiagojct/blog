@@ -1,0 +1,39 @@
+baseURL = "https://deteritus.com/"
+languageCode = "en"
+title = "Deteritus"
+theme = "deteritus"
+
+[author]
+  name = "Tiago Jacinto"
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+  description = "A personal blog by Tiago Jacinto"
+  author = "Tiago Jacinto"
+  mastodon = "https://mastodon.social/@tiagojct"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+
+[markup]
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[pagination]
+  pagerSize = 10
+
+[permalinks]
+  [permalinks.page]
+    blog = "/:slug/"

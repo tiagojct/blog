@@ -1,0 +1,35 @@
+{{- $currentPage := . -}}
+{{- $tags := .Params.tags -}}
+{{- $related := slice -}}
+{{- $blogPosts := where .Site.RegularPages "Section" "blog" -}}
+
+{{- if $tags -}}
+  {{- range $page := where $blogPosts "RelPermalink" "!=" $currentPage.RelPermalink -}}
+    {{- $pageTags := $page.Params.tags -}}
+    {{- if $pageTags -}}
+      {{- range $tag := $tags -}}
+        {{- if in $pageTags $tag -}}
+          {{- $related = $related | append $page -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $related = $related | uniq | first 5 -}}
+{{- end -}}
+
+{{- if $related -}}
+<section class="similar-posts">
+  <h2>Probably related</h2>
+  <ul class="archive-list">
+    {{- range $related -}}
+    <li>
+      <span class="archive-date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="archive-link">
+        {{- partial "post-icon.html" . -}}
+        <a href="{{ .RelPermalink }}">{{ .Title }}{{ partial "star.html" . }}{{ partial "rating.html" . }}</a>
+      </span>
+    </li>
+    {{- end -}}
+  </ul>
+</section>
+{{- end -}}
