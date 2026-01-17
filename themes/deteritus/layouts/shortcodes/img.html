@@ -1,0 +1,11 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+{{- $width := .Get "width" | default "100" -}}
+{{- $caption := .Get "caption" -}}
+
+<figure class="shortcode-img shortcode-img-{{ $width }}">
+  <img src="/img/{{ $src }}" alt="{{ $alt }}" loading="lazy">
+  {{- if $caption -}}
+  <figcaption>{{ $caption | markdownify }}</figcaption>
+  {{- end -}}
+</figure>

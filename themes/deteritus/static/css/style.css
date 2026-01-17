@@ -117,7 +117,7 @@ body {
 .site-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: 3rem;
   flex-wrap: wrap;
   gap: 1rem;
@@ -130,6 +130,7 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  line-height: 1;
 }
 
 .site-title:hover {
@@ -140,15 +141,17 @@ body {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  align-items: baseline;
 }
 
 .nav-link {
-  display: flex;
-  align-items: center;
+  display: inline-flex;
+  align-items: baseline;
   gap: 0.35rem;
   color: var(--muted);
   text-decoration: none;
   font-size: 0.85rem;
+  line-height: 1;
 }
 
 .nav-link:hover {
@@ -157,6 +160,11 @@ body {
 
 .nav-link svg {
   flex-shrink: 0;
+  vertical-align: baseline;
+}
+
+.nav-link span {
+  line-height: 1;
 }
 
 /* Footer */
@@ -316,6 +324,24 @@ hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
+}
+
+/* YouTube Embed */
+.youtube {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.youtube iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* ==========================================================================
@@ -481,6 +507,65 @@ hr {
 
 @media (max-width: 600px) {
   .review-cover {
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Shortcode Images
+   ========================================================================== */
+
+.shortcode-img {
+  margin: 0 0 1.5rem;
+}
+
+.shortcode-img img {
+  width: 100%;
+  border-radius: 3px;
+  display: block;
+}
+
+/* Width variations - left-aligned */
+.shortcode-img-100 {
+  width: 100%;
+}
+
+.shortcode-img-75 {
+  width: 75%;
+}
+
+.shortcode-img-50 {
+  width: 50%;
+}
+
+.shortcode-img-25 {
+  width: 25%;
+}
+
+/* Caption styling - consistent with existing figcaptions */
+.shortcode-img figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Caption links should be styled normally */
+.shortcode-img figcaption a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid var(--link);
+}
+
+.shortcode-img figcaption a:hover {
+  border-bottom-width: 2px;
+}
+
+/* Mobile: Stack all images to full width */
+@media (max-width: 600px) {
+  .shortcode-img-75,
+  .shortcode-img-50,
+  .shortcode-img-25 {
     width: 100%;
   }
 }
